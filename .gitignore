@@ -1,0 +1,54 @@
+# ==============================
+# Backend - Java / Maven
+# ==============================
+target/
+*.class
+*.jar
+*.war
+.mvn/wrapper/maven-wrapper.jar
+
+# ==============================
+# Frontend - Node / npm / Vite
+# ==============================
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==============================
+# Variables de entorno / credenciales
+# ==============================
+.env
+.env.local
+.env.*.local
+
+# ==============================
+# IDEs
+# ==============================
+.idea/
+*.iml
+*.iws
+.vscode/
+!.vscode/extensions.json
+.classpath
+.project
+.settings/
+*.sublime-workspace
+
+# ==============================
+# Sistema operativo
+# ==============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Logs
+# ==============================
+*.log
+logs/
