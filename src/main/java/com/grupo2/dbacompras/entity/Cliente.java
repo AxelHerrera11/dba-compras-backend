@@ -6,15 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * Entidad de EJEMPLO mapeada a TBL_CLIENTES.
- *
- * IMPORTANTE: los nombres de columnas de abajo son un supuesto razonable.
- * Antes de usarla, revisen la estructura real de la tabla en Oracle
- * (DESCRIBE TBL_CLIENTES;) y ajusten los @Column a los nombres reales.
- *
- * Esta clase es solo la base/plantilla que Gerson puede extender para su
- * modulo de Clientes; los demas (Javier, Albino, Axel) deben crear su propia
- * entidad siguiendo este mismo patron para Producto, Tarjeta, EncCompra, etc.
+ * Entidad mapeada a TBL_CLIENTES (estructura real confirmada con
+ * user_tab_columns el 2026-09-03).
  */
 @Entity
 @Table(name = "TBL_CLIENTES")
@@ -24,20 +17,32 @@ public class Cliente {
     @Column(name = "ID_CLIENTE")
     private Long id;
 
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "CARNET")
+    private String carnet;
 
-    @Column(name = "APELLIDO")
-    private String apellido;
+    @Column(name = "PRIMER_NOMBRE")
+    private String primerNombre;
+
+    @Column(name = "SEGUNDO_NOMBRE")
+    private String segundoNombre;
+
+    @Column(name = "TERCER_NOMBRE")
+    private String tercerNombre;
+
+    @Column(name = "PRIMER_APELLIDO")
+    private String primerApellido;
+
+    @Column(name = "SEGUNDO_APELLIDO")
+    private String segundoApellido;
+
+    @Column(name = "CORREO")
+    private String correo;
+
+    @Column(name = "TELEFONO")
+    private String telefono;
 
     @Column(name = "GENERO")
     private String genero;
-
-    @Column(name = "EMAIL")
-    private String email;
-
-    @Column(name = "FECHA_REGISTRO")
-    private java.time.LocalDate fechaRegistro;
 
     public Cliente() {
     }
@@ -50,20 +55,68 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCarnet() {
+        return carnet;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCarnet(String carnet) {
+        this.carnet = carnet;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getPrimerNombre() {
+        return primerNombre;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
+    }
+
+    public String getSegundoNombre() {
+        return segundoNombre;
+    }
+
+    public void setSegundoNombre(String segundoNombre) {
+        this.segundoNombre = segundoNombre;
+    }
+
+    public String getTercerNombre() {
+        return tercerNombre;
+    }
+
+    public void setTercerNombre(String tercerNombre) {
+        this.tercerNombre = tercerNombre;
+    }
+
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
+    }
+
+    public String getSegundoApellido() {
+        return segundoApellido;
+    }
+
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getGenero() {
@@ -72,21 +125,5 @@ public class Cliente {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public java.time.LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(java.time.LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
     }
 }
