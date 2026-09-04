@@ -5,8 +5,10 @@ import com.grupo2.dbacompras.dto.ClientePorGeneroDTO;
 import com.grupo2.dbacompras.dto.ClienteTop10DTO;
 import com.grupo2.dbacompras.entity.Cliente;
 import com.grupo2.dbacompras.service.ClienteService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -26,8 +28,12 @@ public class ClienteController {
 
     @GetMapping("/top10")
     public ApiResponse<List<ClienteTop10DTO>> top10(
-            @RequestParam(defaultValue = "10") int limite) {
-        return ApiResponse.ok(clienteService.obtenerTop10PorMonto(limite));
+            @RequestParam(defaultValue = "10") int limite,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDesde,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaHasta,
+            @RequestParam(required = false) Long idCategoria,
+            @RequestParam(required = false) Long idProducto) {
+        return ApiResponse.ok(clienteService.obtenerTop10PorMonto(limite, fechaDesde, fechaHasta, idCategoria, idProducto));
     }
 
     @GetMapping("/sin-compras")

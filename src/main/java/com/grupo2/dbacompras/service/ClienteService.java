@@ -5,8 +5,10 @@ import com.grupo2.dbacompras.dto.ClienteTop10DTO;
 import com.grupo2.dbacompras.entity.Cliente;
 import com.grupo2.dbacompras.exception.ApiException;
 import com.grupo2.dbacompras.repository.ClienteRepository;
+import com.grupo2.dbacompras.util.ValidacionUtil;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,12 +20,14 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public List<ClienteTop10DTO> obtenerTop10PorMonto(int limite) {
+    public List<ClienteTop10DTO> obtenerTop10PorMonto(int limite, LocalDate fechaDesde, LocalDate fechaHasta,
+                                                        Long idCategoria, Long idProducto) {
         if (limite <= 0 || limite > 100) {
             throw new ApiException("El parametro 'limite' debe estar entre 1 y 100");
         }
+        ValidacionUtil.validarRangoFechas(fechaDesde, fechaHasta);
 
-        return clienteRepository.findTop10PorMontoComprado(limite).stream()
+        return clienteRepository.findTop10PorMontoComprado(limite, fechaDesde, fechaHasta, idCategoria, idProducto).stream()
                 .map(fila -> new ClienteTop10DTO(
                         ((Number) fila[0]).longValue(),
                         (String) fila[1],

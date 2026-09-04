@@ -28,11 +28,11 @@ class ClienteServiceTest {
 
     @Test
     void obtenerTop10PorMonto_mapsFilas() {
-        when(clienteRepository.findTop10PorMontoComprado(10)).thenReturn(List.<Object[]>of(
+        when(clienteRepository.findTop10PorMontoComprado(10, null, null, null, null)).thenReturn(List.<Object[]>of(
                 new Object[]{1L, "Gerson", "Orellana", 1500.50}
         ));
 
-        List<ClienteTop10DTO> resultado = clienteService.obtenerTop10PorMonto(10);
+        List<ClienteTop10DTO> resultado = clienteService.obtenerTop10PorMonto(10, null, null, null, null);
 
         assertEquals(1, resultado.size());
         ClienteTop10DTO dto = resultado.get(0);
@@ -44,8 +44,8 @@ class ClienteServiceTest {
 
     @Test
     void obtenerTop10PorMonto_rechazaLimiteInvalido() {
-        assertThrows(ApiException.class, () -> clienteService.obtenerTop10PorMonto(0));
-        assertThrows(ApiException.class, () -> clienteService.obtenerTop10PorMonto(101));
+        assertThrows(ApiException.class, () -> clienteService.obtenerTop10PorMonto(0, null, null, null, null));
+        assertThrows(ApiException.class, () -> clienteService.obtenerTop10PorMonto(101, null, null, null, null));
     }
 
     @Test

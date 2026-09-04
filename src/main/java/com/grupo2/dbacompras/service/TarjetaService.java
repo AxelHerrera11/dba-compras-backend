@@ -5,8 +5,10 @@ import com.grupo2.dbacompras.dto.TarjetaMasUtilizadaDTO;
 import com.grupo2.dbacompras.dto.TarjetasPorMarcaDTO;
 import com.grupo2.dbacompras.exception.ApiException;
 import com.grupo2.dbacompras.repository.TarjetaRepository;
+import com.grupo2.dbacompras.util.ValidacionUtil;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,8 +38,9 @@ public class TarjetaService {
                 .toList();
     }
 
-    public List<CreditoVsDebitoDTO> obtenerCreditoVsDebito() {
-        return tarjetaRepository.findCreditoVsDebito().stream()
+    public List<CreditoVsDebitoDTO> obtenerCreditoVsDebito(LocalDate fechaDesde, LocalDate fechaHasta, Long idCliente) {
+        ValidacionUtil.validarRangoFechas(fechaDesde, fechaHasta);
+        return tarjetaRepository.findCreditoVsDebito(fechaDesde, fechaHasta, idCliente).stream()
                 .map(fila -> new CreditoVsDebitoDTO(
                         (String) fila[0],
                         ((Number) fila[1]).longValue(),
@@ -47,8 +50,9 @@ public class TarjetaService {
                 .toList();
     }
 
-    public List<TarjetasPorMarcaDTO> obtenerTarjetasPorMarca() {
-        return tarjetaRepository.findTarjetasPorMarca().stream()
+    public List<TarjetasPorMarcaDTO> obtenerTarjetasPorMarca(LocalDate fechaDesde, LocalDate fechaHasta, Long idCliente) {
+        ValidacionUtil.validarRangoFechas(fechaDesde, fechaHasta);
+        return tarjetaRepository.findTarjetasPorMarca(fechaDesde, fechaHasta, idCliente).stream()
                 .map(fila -> new TarjetasPorMarcaDTO(
                         (String) fila[0],
                         ((Number) fila[1]).longValue(),

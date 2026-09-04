@@ -82,12 +82,12 @@ class TarjetaServiceTest {
 
     @Test
     void obtenerCreditoVsDebito_mapsFilas() {
-        when(tarjetaRepository.findCreditoVsDebito()).thenReturn(List.<Object[]>of(
+        when(tarjetaRepository.findCreditoVsDebito(null, null, null)).thenReturn(List.<Object[]>of(
                 new Object[]{"CREDITO", 81L, 206L, 340887.00},
                 new Object[]{"DEBITO", 81L, 213L, 428288.00}
         ));
 
-        List<CreditoVsDebitoDTO> resultado = tarjetaService.obtenerCreditoVsDebito();
+        List<CreditoVsDebitoDTO> resultado = tarjetaService.obtenerCreditoVsDebito(null, null, null);
 
         assertEquals(2, resultado.size());
         CreditoVsDebitoDTO credito = resultado.get(0);
@@ -105,12 +105,12 @@ class TarjetaServiceTest {
 
     @Test
     void obtenerTarjetasPorMarca_mapsFilas() {
-        when(tarjetaRepository.findTarjetasPorMarca()).thenReturn(List.<Object[]>of(
+        when(tarjetaRepository.findTarjetasPorMarca(null, null, null)).thenReturn(List.<Object[]>of(
                 new Object[]{"Visa", 45L, 141L, 244189.00},
                 new Object[]{"American Express", 41L, 110L, 193069.00}
         ));
 
-        List<TarjetasPorMarcaDTO> resultado = tarjetaService.obtenerTarjetasPorMarca();
+        List<TarjetasPorMarcaDTO> resultado = tarjetaService.obtenerTarjetasPorMarca(null, null, null);
 
         assertEquals(2, resultado.size());
         TarjetasPorMarcaDTO visa = resultado.get(0);

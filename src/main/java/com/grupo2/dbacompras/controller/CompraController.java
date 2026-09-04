@@ -5,8 +5,10 @@ import com.grupo2.dbacompras.dto.CompraPorAnioDTO;
 import com.grupo2.dbacompras.dto.CompraPorMesDTO;
 import com.grupo2.dbacompras.dto.PromedioDTO;
 import com.grupo2.dbacompras.service.CompraService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,8 +22,13 @@ public class CompraController {
     }
 
     @GetMapping("/por-mes")
-    public ApiResponse<List<CompraPorMesDTO>> porMes() {
-        return ApiResponse.ok(compraService.obtenerVentasPorMes());
+    public ApiResponse<List<CompraPorMesDTO>> porMes(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDesde,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaHasta,
+            @RequestParam(required = false) Long idCliente,
+            @RequestParam(required = false) Long idCategoria,
+            @RequestParam(required = false) Long idProducto) {
+        return ApiResponse.ok(compraService.obtenerVentasPorMes(fechaDesde, fechaHasta, idCliente, idCategoria, idProducto));
     }
 
     @GetMapping("/por-anio")

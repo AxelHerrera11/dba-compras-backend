@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
@@ -21,11 +22,20 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
             FROM TBL_CLIENTES c
             JOIN TBL_ENC_COMPRAS e ON e.ID_CLIENTE = c.ID_CLIENTE
             JOIN TBL_DET_COMPRAS d ON d.ID_COMPRA = e.ID_COMPRA
+            JOIN TBL_PRODUCTOS p ON p.ID_PRODUCTO = d.ID_PRODUCTO
+            WHERE (:fechaDesde IS NULL OR e.FECHA_COMPRA >= :fechaDesde)
+              AND (:fechaHasta IS NULL OR e.FECHA_COMPRA <= :fechaHasta)
+              AND (:idCategoria IS NULL OR p.ID_CATEGORIA = :idCategoria)
+              AND (:idProducto IS NULL OR p.ID_PRODUCTO = :idProducto)
             GROUP BY c.ID_CLIENTE, c.PRIMER_NOMBRE, c.PRIMER_APELLIDO
             ORDER BY TOTAL_COMPRADO DESC
             FETCH FIRST :limite ROWS ONLY
             """, nativeQuery = true)
-    List<Object[]> findTop10PorMontoComprado(@Param("limite") int limite);
+    List<Object[]> findTop10PorMontoComprado(@Param("limite") int limite,
+                                              @Param("fechaDesde") LocalDate fechaDesde,
+                                              @Param("fechaHasta") LocalDate fechaHasta,
+                                              @Param("idCategoria") Long idCategoria,
+                                              @Param("idProducto") Long idProducto);
 
     @Query(value = """
             SELECT c.*

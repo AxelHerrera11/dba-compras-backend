@@ -5,8 +5,10 @@ import com.grupo2.dbacompras.dto.CompraPorMesDTO;
 import com.grupo2.dbacompras.dto.PromedioDTO;
 import com.grupo2.dbacompras.exception.ApiException;
 import com.grupo2.dbacompras.repository.CompraRepository;
+import com.grupo2.dbacompras.util.ValidacionUtil;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,8 +20,10 @@ public class CompraService {
         this.compraRepository = compraRepository;
     }
 
-    public List<CompraPorMesDTO> obtenerVentasPorMes() {
-        return compraRepository.ventasPorMes().stream()
+    public List<CompraPorMesDTO> obtenerVentasPorMes(LocalDate fechaDesde, LocalDate fechaHasta,
+                                                       Long idCliente, Long idCategoria, Long idProducto) {
+        ValidacionUtil.validarRangoFechas(fechaDesde, fechaHasta);
+        return compraRepository.ventasPorMes(fechaDesde, fechaHasta, idCliente, idCategoria, idProducto).stream()
                 .map(fila -> new CompraPorMesDTO(
                         ((Number) fila[0]).intValue(),
                         ((Number) fila[1]).intValue(),
