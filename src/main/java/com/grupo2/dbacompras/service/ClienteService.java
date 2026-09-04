@@ -52,9 +52,13 @@ public class ClienteService {
     public List<ClientePorGeneroDTO> obtenerClientesPorGenero() {
         return clienteRepository.findClientesPorGenero().stream()
                 .map(fila -> new ClientePorGeneroDTO(
-                        (String) fila[0],
+                        asString(fila[0]),
                         ((Number) fila[1]).longValue()
                 ))
                 .toList();
+    }
+
+    private String asString(Object valor) {
+        return valor == null ? null : valor.toString();
     }
 }
