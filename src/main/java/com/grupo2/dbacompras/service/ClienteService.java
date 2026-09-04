@@ -1,5 +1,6 @@
 package com.grupo2.dbacompras.service;
 
+import com.grupo2.dbacompras.dto.ClientePorGeneroDTO;
 import com.grupo2.dbacompras.dto.ClienteTop10DTO;
 import com.grupo2.dbacompras.entity.Cliente;
 import com.grupo2.dbacompras.exception.ApiException;
@@ -34,5 +35,26 @@ public class ClienteService {
 
     public List<Cliente> obtenerClientesSinCompras() {
         return clienteRepository.findClientesSinCompras();
+    }
+
+    public ClienteTop10DTO obtenerClienteMayorConsumo() {
+        return clienteRepository.findClienteMayorConsumo().stream()
+                .findFirst()
+                .map(fila -> new ClienteTop10DTO(
+                        ((Number) fila[0]).longValue(),
+                        (String) fila[1],
+                        (String) fila[2],
+                        ((Number) fila[3]).doubleValue()
+                ))
+                .orElseThrow(() -> new ApiException("No hay clientes con compras registradas"));
+    }
+
+    public List<ClientePorGeneroDTO> obtenerClientesPorGenero() {
+        return clienteRepository.findClientesPorGenero().stream()
+                .map(fila -> new ClientePorGeneroDTO(
+                        (String) fila[0],
+                        ((Number) fila[1]).longValue()
+                ))
+                .toList();
     }
 }
