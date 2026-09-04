@@ -35,4 +35,32 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
             )
             """, nativeQuery = true)
     List<Cliente> findClientesSinCompras();
+
+    /**
+     * /api/clientes/mayor-consumo — cliente con el mayor monto total comprado.
+     */
+    @Query(value = """
+            SELECT c.ID_CLIENTE,
+                   c.PRIMER_NOMBRE,
+                   c.PRIMER_APELLIDO,
+                   SUM(d.SUBTOTAL) AS TOTAL_COMPRADO
+            FROM TBL_CLIENTES c
+            JOIN TBL_ENC_COMPRAS e ON e.ID_CLIENTE = c.ID_CLIENTE
+            JOIN TBL_DET_COMPRAS d ON d.ID_COMPRA = e.ID_COMPRA
+            GROUP BY c.ID_CLIENTE, c.PRIMER_NOMBRE, c.PRIMER_APELLIDO
+            ORDER BY TOTAL_COMPRADO DESC
+            FETCH FIRST 1 ROWS ONLY
+            """, nativeQuery = true)
+    List<Object[]> findClienteMayorConsumo();
+
+    /**
+     * /api/clientes/por-genero — cantidad de clientes agrupados por GENERO.
+     */
+    @Query(value = """
+            SELECT GENERO, COUNT(*) AS TOTAL
+            FROM TBL_CLIENTES
+            GROUP BY GENERO
+            ORDER BY GENERO
+            """, nativeQuery = true)
+    List<Object[]> findClientesPorGenero();
 }

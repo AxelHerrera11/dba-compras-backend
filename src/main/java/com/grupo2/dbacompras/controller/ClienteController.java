@@ -1,6 +1,7 @@
 package com.grupo2.dbacompras.controller;
 
 import com.grupo2.dbacompras.dto.ApiResponse;
+import com.grupo2.dbacompras.dto.ClientePorGeneroDTO;
 import com.grupo2.dbacompras.dto.ClienteTop10DTO;
 import com.grupo2.dbacompras.entity.Cliente;
 import com.grupo2.dbacompras.service.ClienteService;
@@ -34,6 +35,13 @@ public class ClienteController {
         return ApiResponse.ok(clienteService.obtenerClientesSinCompras());
     }
 
-    // TODO (Gerson): implementar /mayor-consumo y /por-genero siguiendo
-    // el mismo patron: Repository (@Query) -> Service (validacion + mapeo) -> Controller.
+    @GetMapping("/mayor-consumo")
+    public ApiResponse<ClienteTop10DTO> mayorConsumo() {
+        return ApiResponse.ok(clienteService.obtenerClienteMayorConsumo());
+    }
+
+    @GetMapping("/por-genero")
+    public ApiResponse<List<ClientePorGeneroDTO>> porGenero() {
+        return ApiResponse.ok(clienteService.obtenerClientesPorGenero());
+    }
 }
