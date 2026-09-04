@@ -30,9 +30,10 @@ Proyecto del curso, sobre la base de datos Oracle `DBA_COMPRAS`. Backend en **Ja
 - `GET /api/productos/por-categoria`
 
 ### Tarjetas (Albino)
-- `GET /api/tarjetas/mas-utilizadas`
-- `GET /api/tarjetas/credito-vs-debito`
-- `GET /api/tarjetas/por-marca`
+- `GET /api/tarjetas/mas-utilizadas` — Top de tarjetas con mayor volumen de transacciones/compras. Soporta el query param `limite` (default `10`, rango `1` a `100`). Por seguridad, el número de tarjeta se retorna enmascarado (ej. `************8265`). Retorna: `idTarjeta`, `numeroTarjeta`, `marca`, `tipoTarjeta`, `titular`, `totalCompras`, `montoTotal`.
+- `GET /api/tarjetas/credito-vs-debito` — Comparativa de uso entre compras con tarjeta de crédito vs débito (para la gráfica de Keily). Retorna: `tipoTarjeta` (CREDITO / DEBITO), `cantidadTarjetas`, `totalCompras`, `montoTotal`.
+- `GET /api/tarjetas/por-marca` — Distribución de compras y tarjetas agrupadas por marca (Visa, MasterCard, American Express, Discover). Retorna: `marca`, `cantidadTarjetas`, `totalCompras`, `montoTotal`.
+
 
 ### Compras (Axel)
 - `GET /api/compras/por-mes`
