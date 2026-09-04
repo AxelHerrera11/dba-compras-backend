@@ -44,4 +44,12 @@ public interface CompraRepository extends JpaRepository<EncCompra, Long> {
             WHERE (:anio IS NULL OR EXTRACT(YEAR FROM e.FECHA_COMPRA) = :anio)
             """, nativeQuery = true)
     List<Object[]> ticketPromedio(@Param("anio") Integer anio);
+
+    /** /api/compras/total — KPI de total de compras y monto total vendido */
+    @Query(value = """
+            SELECT COUNT(*)             AS TOTAL_COMPRAS,
+                   SUM(e.TOTAL_COMPRA)  AS MONTO_TOTAL
+            FROM TBL_ENC_COMPRAS e
+            """, nativeQuery = true)
+    List<Object[]> totalCompras();
 }

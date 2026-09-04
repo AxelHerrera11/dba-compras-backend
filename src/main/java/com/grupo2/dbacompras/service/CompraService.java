@@ -52,4 +52,14 @@ public class CompraService {
 
         return new PromedioDTO(promedio, cantidad);
     }
+
+    public com.grupo2.dbacompras.dto.TotalComprasDTO obtenerTotalCompras() {
+        List<Object[]> resultado = compraRepository.totalCompras();
+        Object[] fila = resultado.get(0);
+
+        Long total = fila[0] != null ? ((Number) fila[0]).longValue() : 0L;
+        Double monto = fila[1] != null ? ((Number) fila[1]).doubleValue() : 0.0;
+
+        return new com.grupo2.dbacompras.dto.TotalComprasDTO(total, monto);
+    }
 }

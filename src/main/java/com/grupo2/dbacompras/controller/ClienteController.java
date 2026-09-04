@@ -44,4 +44,9 @@ public class ClienteController {
     public ApiResponse<List<ClientePorGeneroDTO>> porGenero() {
         return ApiResponse.ok(clienteService.obtenerClientesPorGenero());
     }
+
+    @GetMapping("/con-compras")
+    public ApiResponse<com.grupo2.dbacompras.dto.ClientesConComprasDTO> conCompras() {
+        return ApiResponse.ok(clienteService.obtenerClientesConCompras());
+    }
 }

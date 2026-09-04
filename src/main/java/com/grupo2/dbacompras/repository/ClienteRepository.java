@@ -63,4 +63,11 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
             ORDER BY GENERO
             """, nativeQuery = true)
     List<Object[]> findClientesPorGenero();
+
+    /** /api/clientes/con-compras — KPI de cantidad de clientes con al menos una compra */
+    @Query(value = """
+            SELECT COUNT(DISTINCT e.ID_CLIENTE)
+            FROM TBL_ENC_COMPRAS e
+            """, nativeQuery = true)
+    Long countClientesConCompras();
 }

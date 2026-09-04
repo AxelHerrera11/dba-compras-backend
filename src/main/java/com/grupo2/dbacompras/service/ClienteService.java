@@ -61,4 +61,9 @@ public class ClienteService {
     private String asString(Object valor) {
         return valor == null ? null : valor.toString();
     }
+
+    public com.grupo2.dbacompras.dto.ClientesConComprasDTO obtenerClientesConCompras() {
+        Long cantidad = clienteRepository.countClientesConCompras();
+        return new com.grupo2.dbacompras.dto.ClientesConComprasDTO(cantidad != null ? cantidad : 0L);
+    }
 }

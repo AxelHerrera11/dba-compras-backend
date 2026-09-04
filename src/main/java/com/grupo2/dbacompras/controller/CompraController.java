@@ -29,6 +29,11 @@ public class CompraController {
         return ApiResponse.ok(compraService.obtenerVentasPorAnio());
     }
 
+    @GetMapping("/total")
+    public ApiResponse<com.grupo2.dbacompras.dto.TotalComprasDTO> total() {
+        return ApiResponse.ok(compraService.obtenerTotalCompras());
+    }
+
     /**
      * ?anio=2025 es opcional: sin parametro devuelve el ticket promedio general;
      * con parametro, lo filtra a ese anio (util para el filtro de fecha del dashboard).
